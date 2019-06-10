@@ -7,6 +7,7 @@ public class Shooter : MonoBehaviour
 
     public GameObject gun;
     float gunOffset = 0.1f;
+    [SerializeField]
     float shootForce = 5f;
     public GameObject projectile;
     public AudioSource gunAudio;
