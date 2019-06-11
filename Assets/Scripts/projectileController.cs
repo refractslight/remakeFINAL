@@ -20,7 +20,7 @@ public class projectileController : MonoBehaviour
     void Start()
     {
         // This works for now to generate ball's health, but idk how fun it is.
-        maxHealth = Random.Range(2, 10);
+        maxHealth = Random.Range(2, 6);
         currentHealth = maxHealth;
         rb = GetComponent<Rigidbody>();
     }
