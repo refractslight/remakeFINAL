@@ -9,12 +9,12 @@ public class gunController : MonoBehaviour
     GameObject ControllerRight;
     public GameObject offset;
     //public float gunSpawnDistance = .25f;
-    Shooter shooterScript;
+    //Shooter shooterScript;
     
     // Start is called before the first frame update
     void Start()
     {
-        shooterScript = GetComponent<Shooter>();
+        //shooterScript = GetComponent<Shooter>();
         gun = Object.Instantiate(gun, offset.transform.position, offset.transform.rotation);
         gun.transform.SetParent(ControllerRight.transform);
         updatePosition();
