@@ -28,10 +28,9 @@ public class Shooter : MonoBehaviour
         }
     }
 
-    void shootProjectile() {
-        GameObject bullet = this.projectile;
+   public void shootProjectile() {
+        GameObject bullet = GameObject.Instantiate(projectile, transform.position + (transform.forward * gunOffset), new Quaternion());
         Rigidbody rb = bullet.GetComponent<Rigidbody>();
-        Instantiate(bullet, gun.transform.position + (transform.forward * gunOffset), new Quaternion());
         rb.velocity = transform.forward * shootForce;
         gunAudio.PlayOneShot(pew[Random.Range(0, pew.Length)]);
     }

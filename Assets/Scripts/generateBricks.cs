@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
+// make a new brick stamp
 public class brick : MonoBehaviour
 {
     public new GameObject gameObject;
@@ -14,29 +15,68 @@ public class brick : MonoBehaviour
 public class generateBricks : MonoBehaviour
 {
     public GameObject brickPrefab;
-    public float padding;
+    public float padding = 0.2f;
     public int rows;
     public int columns;
     public brick[,] arrayOfBricks;
+    public GameObject backWall;
+
+    //public bool GenerateMe = false;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        arrayOfBricks = new brick[columns, rows];
-        for (int i = 0; i < columns; i++){
-            for(int j = 0; j < rows; j++){
-                brick theBrick = new brick();
-                theBrick.gameObject = GameObject.Instantiate(brickPrefab);
-
-            }
-        }
+        
+        columns = (int) backWall.GetComponent<MeshFilter>().mesh.bounds.extents.y;
+        Debug.Log(columns);
+        createBricks();
+    
 
     }
+    void createBricks()
+    {
+        // Create an array inside an array
+        arrayOfBricks = new brick[columns, rows];
+
+        // creat a cursor that will move after every instatiate
+        Vector3 cursor = new Vector3();
+
+
+        for (int i = 0; i < columns; i++)
+        {
+            for (int j = 0; j < rows; j++)
+            {
+                //STAMP, Instatiate brick, set the parent to the brick generator, establish where cursor is
+                brick currentBrick = new brick();
+                currentBrick.gameObject = GameObject.Instantiate(brickPrefab);
+                currentBrick.gameObject.transform.SetParent(transform);
+                currentBrick.gameObject.transform.localPosition = cursor;
+                // Assign all that mess to the array inside the array, I think
+                arrayOfBricks[i, j] = currentBrick;
+                // move the cursor along y axis
+                cursor.y -= padding;
+
+                //makes a grid with huge padding which sucks
+                //Instantiate(brickPrefab, new Vector3(x, y, 0), Quaternion.identity); */
+
+            }
+            // keeps cursor still along y axis, does x axis instead
+            cursor.y = 0;
+            cursor.x += padding;
+
+
+        }
+    }
+
+
+
+
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }
+
