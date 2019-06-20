@@ -19,16 +19,15 @@ public class generateBricks : MonoBehaviour
     public int rows;
     public int columns;
     public brick[,] arrayOfBricks;
-    public GameObject backWall;
-
-    //public bool GenerateMe = false;
+    
+    
 
 
     // Start is called before the first frame update
     void Start()
     {
         
-        columns = (int) backWall.GetComponent<MeshFilter>().mesh.bounds.extents.y;
+        
         Debug.Log(columns);
         createBricks();
     

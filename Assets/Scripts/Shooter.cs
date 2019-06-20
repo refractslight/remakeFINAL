@@ -12,11 +12,11 @@ namespace Valve.VR.InteractionSystem
         public GameObject gun;
         float gunOffset = 0.1f;
         [SerializeField]
-        float shootForce = 5f;
+        float shootForce = 7f;
         public GameObject projectile;
         public AudioSource gunAudio;
         public AudioClip[] pew;
-        public SteamVR_Action_Boolean isShooting;
+        //public SteamVR_Action_Boolean isShooting;
 
 
         // Start is called before the first frame update
@@ -32,7 +32,7 @@ namespace Valve.VR.InteractionSystem
             {
                 shootProjectile();
             }
-            
+
         }
 
         public void shootProjectile()

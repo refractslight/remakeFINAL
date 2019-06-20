@@ -152,7 +152,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d67e8f1130e9cd4d821b8f842fdac4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  brickPrefab: {fileID: 1514682762762726}
+  rb: {fileID: 0}
+  explosiveRings: 5
+  explosiveBrick: {fileID: 0}
   brickParticles: {fileID: 1254710067822818, guid: 9db40f25056f0fb40af41d9118947494,
     type: 3}
-  hitBrick: 0
+  testHit: 0
+  explosive: 0
+  brickDeath:
+  - {fileID: 8300000, guid: 9e5e1ea65f5c85648835c8ff0c05aed8, type: 3}
+  - {fileID: 8300000, guid: 087e16ce16d575244878339d3a6c9347, type: 3}
+  - {fileID: 8300000, guid: 8206ac6b7922332459629e7a3c369783, type: 3}
+  - {fileID: 8300000, guid: 64ad202abbc74654787bd0659f6499d9, type: 3}
+  - {fileID: 8300000, guid: cd090c27ea1695d47b4379e3b9fbb823, type: 3}
+  - {fileID: 8300000, guid: 7292f1a55d94f894f8f454bc25c0b16f, type: 3}
+  - {fileID: 8300000, guid: 6630140f4789d3f46a9b952b37c93af3, type: 3}
+  explosiveDeath: []
+  tags:
+  - Brick
+  - Explosive
