@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//bless this mess
 public class brickController : MonoBehaviour
 {
 
@@ -19,26 +20,36 @@ public class brickController : MonoBehaviour
     public GameObject[] randomBricks;
     public int numExplosiveBricks;
     public int index;
+
     
     // Start is called before the first frame update
     void Start()
     {
         randomizeExplosive();
+        
     }
 
 
-    public GameObject randomizeExplosive()
+    void randomizeExplosive()
     {
+        generateBricks generate = GetComponent<generateBricks>();
         rb = GetComponent<Rigidbody>();
 
-        numExplosiveBricks = Random.Range(3, 5);
+        numExplosiveBricks = Mathf.RoundToInt((generate.columns * generate.rows)*.25f);
         for(int x = 0; x < numExplosiveBricks; x++){
         randomBricks = GameObject.FindGameObjectsWithTag("Brick");
         index = Random.Range(0, numExplosiveBricks);
-          }
+            }
 
-          return randomBricks[index];
+          makeExplosive(randomBricks[index]);
 
+    }
+
+
+    void makeExplosive(GameObject brickie)
+    {
+        brickie.gameObject.tag="Explosive";
+        Debug.Log("explosive Bricks Made");
     }
 
     void OnCollisionEnter(Collision col)
@@ -59,15 +70,33 @@ public class brickController : MonoBehaviour
 
     void explosiveHit()
     {
+        float explosiveRadius = .5f * Random.Range(.09f, 1.5f);
+        float explosionTime = 0.2f * Random.Range(1f, 1.1f);
+        float timeInBetweenExplosions = explosionTime / (float)explosiveRings;
+        float explosiveRadiusStep = explosiveRadius / (float)explosiveRings;
+        for(int x = 0; x < explosiveRings; x++){
+            Collider[] thingsWeHit = Physics.OverlapSphere(transform.position, explosiveRadiusStep);
+            for(int i = 0; i < thingsWeHit.Length; i++){
+                GameObject objToDestroy = thingsWeHit[i].attachedRigidbody.gameObject;
+                uponBrickHit();
+                brickDeathNoise();
+                }
+            }
+
+
         Debug.Log("boom");
     }
 
     void uponBrickHit()
     {
-        AudioSource.PlayClipAtPoint(brickDeath[Random.Range(0, brickDeath.Length)], transform.position);
+        brickDeathNoise();
         Destroy(GameObject.Instantiate(brickParticles, transform.position, Quaternion.identity), 1f);
         Destroy(gameObject);
 
+    }
+
+    void brickDeathNoise(){
+        AudioSource.PlayClipAtPoint(brickDeath[Random.Range(0, brickDeath.Length)], transform.position);
     }
     // Update is called once per frame
     void Update()
@@ -82,7 +111,7 @@ public class brickController : MonoBehaviour
             else
             {
                 uponBrickHit();
-                testHit = false;
+                //testHit = false;
             }
 
         }
